@@ -23,7 +23,7 @@ Best regards,
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-From:    Dmitry Koteroff <dk@dklab.ru>
+From:    Dmitry Koterov <koterov at cpan dot org>
 To:      Prognozov.NET <webmaster@prognozov.net>
 Date:    Tuesday, March 12, 2002, 3:43:32 PM
 Subject: CGI::WebIn
@@ -54,7 +54,7 @@ Files:   <none>
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 From:    Prognozov.NET <webmaster@prognozov.net>
-To:      Dmitry Koteroff <dk@dklab.ru>
+To:      Dmitry Koterov <koterov at cpan dot org>
 Date:    Tuesday, March 12, 2002, 4:14:29 PM
 Subject: CGI::WebIn
 Files:   <none>
@@ -108,7 +108,7 @@ DK>   Лаборатория dk, http://www.dklab.ru
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-From:    Dmitry Koteroff <dk@dklab.ru>
+From:    Dmitry Koterov <koterov at cpan dot org>
 To:      Prognozov.NET <webmaster@prognozov.net>
 Date:    Tuesday, March 12, 2002, 7:43:23 PM
 Subject: CGI::WebIn
