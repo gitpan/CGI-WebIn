@@ -69,9 +69,11 @@ Revision history for Perl extension CGI::WebIn.
     - Fixed bug with autoarrays (QUERY_STRING is like test[]=a&test[]=b).
     - Merged with old 2.0 frozen project.
     - AutoLoader and Exporter is not used now.
-    - Function loading no demand (as in CGI.pm).
+    - Function loading on demand (as in CGI.pm).
     - Improved QUERY_STRING parser: test{'aa\'bc'}, test{'a\\b'} etc.
     - Error reporting system now silent (GetError() function added).
     - Autoarray handling improved: test[]{abc}=xxx, test[-10] 
       and test[12345678] are bad and generate errors.
-     
+
+2.01  Wed Mar 10 14:50:00 2004
+    - Removed all function prototypes.       

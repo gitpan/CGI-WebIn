@@ -13,7 +13,7 @@
 
 package CGI::WebIn;
 use strict;
-our $VERSION = '2.00';
+our $VERSION = '2.01';
 our @EXPORT=qw(
 	%IN 
 	%GET 
@@ -156,7 +156,7 @@ END_OF_FUNC
 	# а также в хэш %GET, %POST или %COOKIES, в зависимости от значения $type 
 	# (get, post, cookies соответственно).
 	# Пустые скобки "{}" заменяются на значение "{$v}"!
-	sub _processPar($$$)
+	sub _processPar
 	{	my ($k,$v,$type)=@_; 
 		return if !defined($k);
 		$type=uc($type||"IN");
@@ -276,7 +276,7 @@ END_OF_FUNC
 	# или, в крайнем случае, в текущей. В конце работы скрипта все файлы, имеющие
 	# имена, сгенерированные tempnam(), будут удалены!
 	# Всегда возвращает полный путь к временному файлу.
-	sub tempnam(;$)
+	sub tempnam
 	{	my ($dir)=@_; 
 		foreach my $cd ($dir,$ENV{TMP},$ENV{TEMP},"/tmp",".") {
 			if(defined $cd && -d $cd && -w $cd) { $dir=$cd; last; }
@@ -456,7 +456,7 @@ END_OF_FUNC
 	#	"+3M"  	-- in 3 months
 	#	"+2y"  	-- in 2 years
 	#	"-3m"  	-- 3 minutes ago(!)
-	sub ExpireCalc($)
+	sub ExpireCalc
 	{	my($time)=@_;
 		my(%mult)=('s'=>1, 'm'=>60, 'h'=>60*60, 'd'=>60*60*24, 'M'=>60*60*24*30, 'y'=>60*60*24*365);
 		my($offset);
@@ -473,7 +473,7 @@ END_OF_FUNC
 	# This internal routine creates date strings suitable for use in
 	# cookies ($format="cookie") and HTTP headers ($format="http" or nothing). 
 	# (They differ, unfortunately.) Thanks to Fisher Mark for this.
-	sub Expires($;$)
+	sub Expires
 	{	my($time,$format) = @_; $format ||= 'http';
 		my(@MON)=qw/Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec/;
 		my(@WDAY) = qw/Sun Mon Tue Wed Thu Fri Sat/;
@@ -496,7 +496,7 @@ END_OF_FUNC
 	# Если $expire не задан, время жизни становится бесконечным. Если задан, но равен 
 	# нулю - создается one-session cookie.
 	# Параметр $expire можно задавать в виде, который "понимает" функция ExpireCalc().
-	sub SetCookie($;$;$;$;$;$)
+	sub SetCookie
 	{	my ($name,$value,$expires,$path,$domain,$secure)=@_;
 		my $NeedDel=0;
 
@@ -541,7 +541,7 @@ END_OF_FUNC
 	# Удаляет cookie с именем $name. Параметры $path и $domain 
 	# должны точно совпадать с теми, которые были заданы при 
 	# установке Cookie.
-	sub DropCookie($;$;$)
+	sub DropCookie
 	{	my ($name,$path,$domain)=@_;
 		SetCookie($name,undef,undef,$path,$domain);
 	}
@@ -615,7 +615,7 @@ END_OF_FUNC
 	# Распаковывает строку, созданную ранее при помощи Serialize(). Возвращает то, что
 	# было когда-то передано в параметрах Serialize.
 	# В случае ошибки возвращает undef и выдает warning.
-	sub Unserialize($;$)
+	sub Unserialize
 	{	return undef if !defined $_[0];
 		my @Result=(); my $err=0;
 		local $SIG{__WARN__}=sub { $err=1; };
