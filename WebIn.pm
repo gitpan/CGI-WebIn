@@ -9,7 +9,7 @@
 package CGI::WebIn;
 #use strict;
 use Exporter; 
-our $VERSION = '1.60';
+our $VERSION = '1.61';
 our @ISA=qw(Exporter);
 our @EXPORT=qw(
 	%IN 
@@ -63,7 +63,7 @@ if($ENV{HTTP_COOKIE} || $ENV{COOKIE}) {
 
 
 # Кодирование и декодирование.
-sub URLEncode { my ($s)=@_; $s=~s/([^;\/?:@&=+\$,A-Za-z0-9\-_.!~*'()])/sprintf("%%%02X",ord $1)/sg; return $s }
+sub URLEncode { my ($s)=@_; $s=~s/([^;\/?:@&=+\$,A-Za-z0-9\-_.!~*'()])/sprintf("%%%02X",ord $1)/sge; return $s }
 sub URLDecode {	my ($s)=@_; $s=~tr/+/ /; $s=~s/%([0-9A-Fa-f]{2})/chr(hex($1))/esg; return $s }
 
 
