@@ -1,5 +1,5 @@
-CGI/WebIn version 1.00
-======================
+CGI/WebIn
+=========
 
 The README is used to introduce the module and provide instructions on
 how to install the module, any machine dependencies it may have (for
@@ -21,14 +21,21 @@ To install this module type the following:
    make test
    make install
 
+SYNOPSIS
+ 
+  use CGI::WebOut;
+  use CGI::WebIn;
+  use Data::Dumper;
+  print "<pre>".Dumper(\%IN)."</pre>";
+   
 DEPENDENCIES
 
-This module requires these other modules and libraries:
-
-  CGI::WebOut  
+This module may use CGI::WebOut to better handle of SetCookie method.
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2001 Dmitry Koteroff (koteroff@cpan.org), http://www.dklab.ru.
-Please email me if you want to use this module.
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2000-2004 Dmitry Koteroff (koteroff@cpan.org)
+http://www.dklab.ru/chicken/6.html
 

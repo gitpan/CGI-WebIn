@@ -18,7 +18,36 @@ Revision history for Perl extension CGI::WebIn.
       write A{'aaa\'bbb'} and even A{'aa}bb'}.
     - fixed bug with trailing and invalid % in QUERY_STRING: 
       no vagueness now.
-      
+
+1.10  
+  Thu Jul 11 18:00:00 2002:
+    - No C-code now, only Perl (URLEncode/URLDecode) to simplify 
+      the module.
+    - Now module uses strict.
+    - Fixed bug with possibility of overwrite exist variables by
+      exported parameters.
+    - Fixed bug with parameter names like "A::b". Now parameter 
+      keys must be alphanumerical only.
+    - No \r cutting now, only \r\n|\n\r -> \n, maybe good for Macs.
+    - _processPar completely re-written.
+    - Added warning messages for parameter name like a[N]. N must 
+      be numerical only and < 10000.
+    - Added warning for bad parameter names (like "{a}{b}" instead 
+      of "a{b}").
+    - Now "a[]=b" means "a[-1]=b", and "a{}=b" still means "a{b}=b".
+    - Fixed bug with incorrect processing of "a{'a\'}{b'}".
+    - Now types are controlled strictly, warning messages are added.
+      For example, this QUERY_STRING generates warning (mismatched 
+      parameter type ARRAY instead of SCALAR): "a=10&a{b}=20".
+  Fri Jul 12 18:00:00 2002:
+    - _parseMultipart completely re-written (some optimizations).
+    - Now module uses File::Temp to create temporary upload files
+      (instead of own functions), maybe more universal and good 
+      for Macs.
+  Sat Jul 13 18:00:00 2002:
+    - Fixed bug with incorrect processing of upload parameter
+      names like F[] or F{}.
+       
 1.50  Sat Dec 21 02:00:00 2003
     - Exported form variables now are synonyms (not copies!) of %IN.
     - In Autoflush mode setting cookie causes error message.
@@ -27,12 +56,22 @@ Revision history for Perl extension CGI::WebIn.
     - Fixed bug in tempnam() - now you can upload more one file
       at the same time.
 
-1.51  Sat Dec 27 20:40:00 2003 
+1.51  Sat Dec 27 20:40:00 2003
     - Fixed bug with "+" in urlencoded string.
-    
+
 1.60  Wed Dec 31 22:00:00 2003
-    - Published to CPAN.    
+    - Published to CPAN.
 
 1.61  Sun Jan 18 05:08:00 2004
     - Fixed silly bug in URLEncode().
-    
+
+2.00  Sun Feb 14 22:40:00 2004
+    - Fixed bug with autoarrays (QUERY_STRING is like test[]=a&test[]=b).
+    - Merged with old 2.0 frozen project.
+    - AutoLoader and Exporter is not used now.
+    - Function loading no demand (as in CGI.pm).
+    - Improved QUERY_STRING parser: test{'aa\'bc'}, test{'a\\b'} etc.
+    - Error reporting system now silent (GetError() function added).
+    - Autoarray handling improved: test[]{abc}=xxx, test[-10] 
+      and test[12345678] are bad and generate errors.
+     
