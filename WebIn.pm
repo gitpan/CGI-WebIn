@@ -9,7 +9,7 @@
 package CGI::WebIn;
 #use strict;
 use Exporter; 
-our $VERSION = '1.51';
+our $VERSION = '1.60';
 our @ISA=qw(Exporter);
 our @EXPORT=qw(
 	%IN 
@@ -658,7 +658,7 @@ file, uploading is disabled.
 
 =head1 AUTHOR
 
-Dmitry Koteroff <dk@dklab.ru>, http://www.dklab.ru
+Dmitry Koteroff <koteroff@cpan.org>, http://www.dklab.ru
 
 =head1 SEE ALSO
 

@@ -7,7 +7,7 @@ WriteMakefile(
     'PREREQ_PM'		=> {}, # e.g., Module::Name => 1.1
     ($] >= 5.005 ?    ## Add these new keywords supported since 5.005
       (ABSTRACT  => 'Perl extension for reading CGI form data', # retrieve abstract from module
-       AUTHOR    => 'Dmitry Koteroff <dk@dklab.ru>') : ()),
+       AUTHOR    => 'Dmitry Koteroff <koteroff@cpan.org>') : ()),
     'LIBS'		=> [''], # e.g., '-lm'
     'DEFINE'		=> '', # e.g., '-DHAVE_SOMETHING'
 	# Insert -I. if you add *.h files later:
