@@ -1,0 +1,157 @@
+<HTML>
+<HEAD>
+<TITLE>CGI::WebIn - Perl extension for reading CGI form data</TITLE>
+<LINK REV="made" HREF="mailto:">
+</HEAD>
+
+<BODY>
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+
+<UL>
+
+	<LI><A HREF="#name">NAME</A></LI>
+	<LI><A HREF="#synopsis">SYNOPSIS</A></LI>
+	<LI><A HREF="#features">FEATURES</A></LI>
+	<LI><A HREF="#overview">OVERVIEW</A></LI>
+	<LI><A HREF="#description">DESCRIPTION</A></LI>
+	<LI><A HREF="#author">AUTHOR</A></LI>
+	<LI><A HREF="#see also">SEE ALSO</A></LI>
+</UL>
+<!-- INDEX END -->
+
+<HR>
+<P>
+<H1><A NAME="name">NAME</A></H1>
+<P>CGI::WebIn - Perl extension for reading CGI form data</P>
+<P>
+<HR>
+<H1><A NAME="synopsis">SYNOPSIS</A></H1>
+<PRE>
+  use CGI::WebOut;
+  use CGI::WebIn(1);</PRE>
+<PRE>
+  # just to avoid &quot;typo warning&quot;
+  our ($doGo,%Address,$Count);</PRE>
+<PRE>
+  # count visits
+  SetCookie(&quot;Count&quot;,++$Count,&quot;+10y&quot;);</PRE>
+<PRE>
+  # is the button pressed?
+  if($doGo) {
+      print &quot;Hello from $Address{Russia}{Moscow}!&quot;;
+  }</PRE>
+<PRE>
+  print &lt;&lt;EOT;
+    You have visited this page $Count times.
+    &lt;form action=$SCRIPT_NAME method=post enctype=multipart/form-data&gt;
+    &lt;input type=text name=&quot;Address{Russia}{Moscow}&quot; value=&quot;house&quot;&gt;
+    &lt;input type=submit name=doGo value=&quot;Say hello&quot;&gt;
+    &lt;/form&gt;
+  EOT</PRE>
+<P>
+<HR>
+<H1><A NAME="features">FEATURES</A></H1>
+<UL>
+<LI>
+Handle multi-dimentional GET/POST form data (see SYNOPSIS).
+<P></P>
+<LI>
+Handle multipart forms for file uploads.
+<P></P>
+<LI>
+Full real-time multi-dimentional cookie support.
+<P></P>
+<LI>
+PHP-style form data exporting.
+<P></P>
+<LI>
+Fast URL encode/decode subroutines.
+<P></P></UL>
+<P>
+<HR>
+<H1><A NAME="overview">OVERVIEW</A></H1>
+<P>This module is used to make CGI programmer's work more comfortable. 
+The main idea is to handle input stream (<CODE>STDIN</CODE>) and <CODE>QUERY_STRING</CODE>
+environment variable sent by browser and parse their correctly
+(including multipart forms). Resulting variables are put to <CODE>%GET</CODE>, 
+<CODE>%POST</CODE>, <CODE>%COOKIES</CODE> and <CODE>%IN</CODE> (<CODE>%IN</CODE> holds ALL the data). Also 
+allows you to get/set cookies (any structure, not only scalars!) with 
+<A HREF="#item_SetCookie"><CODE>SetCookie()</CODE></A> subroutine.</P>
+<P>If this module is included without any arguments:</P>
+<PRE>
+  use CGI::WebIn;</PRE>
+<P>it exports the following: <CODE>%IN</CODE>, <CODE>%GET</CODE>, <CODE>%POST</CODE>, <CODE>%COOKIES</CODE>, 
+<A HREF="#item_SetCookie"><CODE>SetCookie()</CODE></A> and <A HREF="#item_DropCookie"><CODE>DropCookie()</CODE></A></P>
+<P>You can specify additional information to be exported by using 
+include arguments:</P>
+<PRE>
+  use CGI::WebIn 'gpce';</PRE>
+<P>means that all the GET, POST, Cookies and then environment 
+variables will be exported to ``usual'' package variables. 
+You must not be afraid to write everywhere <CODE>'gpce'</CODE> - the 
+following instruction does the same:</P>
+<PRE>
+  use CGI::WebIn 'gpce';</PRE>
+<P>
+<HR>
+<H1><A NAME="description">DESCRIPTION</A></H1>
+<DL>
+<DT><STRONG><A NAME="item_WebIn"><CODE>use CGI::WebIn(1)</CODE></A></STRONG><BR>
+<DD>
+Reads all the CGI input and exports it to the caller module
+(like PHP does).
+<P></P>
+<DT><STRONG><A NAME="item_%IN,"><CODE>%IN, %GET, %POST and %COOKIES</CODE></A></STRONG><BR>
+<DD>
+<CODE>%IN</CODE> contains all the form data. <CODE>%GET</CODE>, <CODE>%POST</CODE> and <CODE>%COOKIES</CODE> 
+holds GET, POST and Cookies variables respectively.
+<P></P>
+<DT><STRONG><A NAME="item_SetCookie"><CODE>void SetCookie($name, $value [,int $expire][,$path][,$domain][bool $secure])</CODE></A></STRONG><BR>
+<DD>
+Sets the cookie in user browser. Value of that cookie is placed to <CODE>%COOKIES</CODE> 
+and ALL exported client modules immediately. Format for time <CODE>$expire</CODE> can be 
+in any of the forms:
+<PRE>
+  &lt;stamp&gt; - UNIX timestamp
+  0       - one-session cookie
+  undef   - drop this cookie
+  &quot;now&quot;   - expire immediately
+  &quot;+180s&quot; - in 180 seconds
+  &quot;+2m&quot;   - in 2 minutes
+  &quot;+12h&quot;  - in 12 hours
+  &quot;+1d&quot;   - in 1 day
+  &quot;+3M&quot;   - in 3 months
+  &quot;+2y&quot;   - in 2 years
+  &quot;-3m&quot;   - 3 minutes ago(!)</PRE>
+<P></P>
+<DT><STRONG><A NAME="item_DropCookie"><CODE>void DropCookie(string $name [,string $path] [,string $domain])</CODE></A></STRONG><BR>
+<DD>
+Destroys the specified cookie. Make sure the <CODE>$path</CODE> and <CODE>$domain</CODE> parameters are 
+the same to previous <A HREF="#item_SetCookie"><CODE>SetCookie()</CODE></A> call.
+<P></P>
+<DT><STRONG><A NAME="item_file_uploading_support"><CODE>file uploading support</CODE></A></STRONG><BR>
+<DD>
+To enable file uploading, you must create the following 
+file <CODE>.can_upload</CODE>:
+<PRE>
+  # directory to upload user files
+  dir = .
+  # maximum allowed size of the file to upload
+  maxsize = 100000</PRE>
+<P>and place it to the current directory. If there is no <CODE>.can_upload</CODE> 
+file, uploading is disabled.</P>
+<P></P></DL>
+<P>
+<HR>
+<H1><A NAME="author">AUTHOR</A></H1>
+<P>Dmitry Koteroff &lt;<A HREF="mailto:dk@dklab.ru">dk@dklab.ru</A>&gt;, <A HREF="http://www.dklab.ru">http://www.dklab.ru</A></P>
+<P>
+<HR>
+<H1><A NAME="see also">SEE ALSO</A></H1>
+<P><CODE>CGI::WebOut</CODE>.</P>
+
+</BODY>
+
+</HTML>
