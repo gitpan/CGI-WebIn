@@ -13,7 +13,7 @@
 
 package CGI::WebIn;
 use strict;
-our $VERSION = '2.01';
+our $VERSION = '2.02';
 our @EXPORT=qw(
   %IN 
   %GET 
@@ -524,7 +524,7 @@ END_OF_FUNC
     };
     if($@) {
       # ≈сли не вышло загрузить CGI::WebOut, то просто печатаем.
-      print $cook;
+      print $cook . "\r\n";
     } else {
       CGI::WebOut::Header($cook);
     }

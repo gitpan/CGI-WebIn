@@ -77,3 +77,6 @@ Revision history for Perl extension CGI::WebIn.
 
 2.01  Wed Mar 10 14:50:00 2004
     - Removed all function prototypes.       
+    
+2.02  Mar 9 2006    
+    - Fixed: SetCookie does not work if CGI::WebOut is not present.
