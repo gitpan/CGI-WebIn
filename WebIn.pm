@@ -13,7 +13,7 @@
 
 package CGI::WebIn;
 use strict;
-our $VERSION = '2.02';
+our $VERSION = '2.03';
 our @EXPORT=qw(
   %IN 
   %GET 
@@ -101,7 +101,7 @@ sub GetErrors {
 
 
 # Encoding and decoding.
-sub URLEncode { my ($s)=@_; $s=~s/([^;\/?:@&=+\$,A-Za-z0-9\-_.!~*'()])/sprintf("%%%02X",ord $1)/sge; return $s }
+sub URLEncode { my ($s)=@_; $s=~s{([^-_A-Za-z0-9./])}{sprintf("%%%02X", ord $1)}sge; return $s }
 sub URLDecode { my ($s)=@_; $s=~tr/+/ /; $s=~s/%([0-9A-Fa-f]{2})/chr(hex($1))/esg; return $s }
 
 

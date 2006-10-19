@@ -80,3 +80,6 @@ Revision history for Perl extension CGI::WebIn.
     
 2.02  Mar 9 2006    
     - Fixed: SetCookie does not work if CGI::WebOut is not present.
+    
+2.03  Oct 19 2006
+    - Fixed: URLEncode() does not encode "=" and "&" characters (and more).
